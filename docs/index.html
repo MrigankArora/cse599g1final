@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+      <title>CSE 599g1 Final: Constructing Counterexamples for Combinatorics Conjectures</title>
+    
+          <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+          <link rel="stylesheet" href="_static/theme.css " type="text/css" />
+      
+      <!-- sphinx script_files -->
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+
+      
+      <!-- bundled in js (rollup iife) -->
+      <!-- <script src="_static/theme-vendors.js"></script> -->
+      <script src="_static/theme.js" defer></script>
+    
+  <link rel="index" title="Index" href="genindex.html" />
+  <link rel="search" title="Search" href="search.html" />
+  <link rel="next" title="Project Idea" href="idea.html" /> 
+  </head>
+
+  <body>
+    <div id="app">
+    <div class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="#" class="home-link">
+    
+      <span class="site-name">CSE599g1 Final</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">Quick search</span>
+    <div class="searchformwrapper">
+      <form class="search" action="search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="Search" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="#cse-599g1-final-constructing-counterexamples-for-combinatorics-conjectures">Contents:</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 ">
+            
+              <a href="idea.html" class="reference internal ">Project Idea</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="algorithm.html" class="reference internal ">Methodology</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="results.html" class="reference internal ">Results</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="next_steps.html" class="reference internal ">Next Steps</a>
+            
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="#">Docs</a> &raquo;</li>
+    
+    <li>CSE 599g1 Final: Constructing Counterexamples for Combinatorics Conjectures</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+  <li class="next">
+    <a href="idea.html"
+       title="next chapter">Project Idea →</a>
+  </li>
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main" v-pre>
+            
+  <section id="cse-599g1-final-constructing-counterexamples-for-combinatorics-conjectures">
+<h1>CSE 599g1 Final: Constructing Counterexamples for Combinatorics Conjectures<a class="headerlink" href="#cse-599g1-final-constructing-counterexamples-for-combinatorics-conjectures" title="Permalink to this headline">¶</a></h1>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/SrVii2Z4Noo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="idea.html">Project Idea</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="idea.html#abstract">Abstract</a></li>
+<li class="toctree-l2"><a class="reference internal" href="idea.html#problem-statement">Problem Statement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="idea.html#related-work">Related Work</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="algorithm.html">Methodology</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="algorithm.html#algorithm-summary">Algorithm Summary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algorithm.html#input-format">Input Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algorithm.html#initializing-the-neural-network">Initializing the Neural Network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algorithm.html#constructing-graphs-from-the-neural-network">Constructing Graphs from the Neural Network</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="algorithm.html#give-the-model-an-empty-graph">Give the Model an Empty Graph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="algorithm.html#model-outputs-a-probability">Model outputs a probability</a></li>
+<li class="toctree-l3"><a class="reference internal" href="algorithm.html#adding-the-edge-to-the-graph">Adding the edge to the graph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="algorithm.html#feed-the-graph-to-the-model-again">Feed the Graph to the Model again</a></li>
+<li class="toctree-l3"><a class="reference internal" href="algorithm.html#graph-is-finished-constructing">Graph is finished constructing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="algorithm.html#scoring-and-filtering-bad-graphs">Scoring and Filtering Bad Graphs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algorithm.html#train-on-the-good-graphs">Train on the Good Graphs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algorithm.html#finding-a-counterexample">Finding a Counterexample</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algorithm.html#why-this-algorithm">Why this Algorithm</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="results.html">Results</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="results.html#conjecture-1">Conjecture 1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="results.html#id1">Results</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="results.html#conjecture-2">Conjecture 2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="results.html#id4">Results</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="next_steps.html">Next Steps</a></li>
+</ul>
+</div>
+</section>
+
+
+          </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+  <li class="next">
+    <a href="idea.html"
+       title="next chapter">Project Idea →</a>
+  </li>
+</ul><div class="footer" role="contentinfo">
+      &#169; Copyright 2021, Mrigank Arora.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.3.1 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
+</div>
+            </div>
+          </div>
+      </page>
+    </div></div>
+    
+    
+  </body>
+</html>

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+      <title>Methodology</title>
+    
+          <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+          <link rel="stylesheet" href="_static/theme.css " type="text/css" />
+      
+      <!-- sphinx script_files -->
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+
+      
+      <!-- bundled in js (rollup iife) -->
+      <!-- <script src="_static/theme-vendors.js"></script> -->
+      <script src="_static/theme.js" defer></script>
+    
+  <link rel="index" title="Index" href="genindex.html" />
+  <link rel="search" title="Search" href="search.html" />
+  <link rel="next" title="Results" href="results.html" />
+  <link rel="prev" title="Project Idea" href="idea.html" /> 
+  </head>
+
+  <body>
+    <div id="app">
+    <div class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="index.html" class="home-link">
+    
+      <span class="site-name">CSE599g1 Final</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">Quick search</span>
+    <div class="searchformwrapper">
+      <form class="search" action="search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="Search" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="index.html#cse-599g1-final-constructing-counterexamples-for-combinatorics-conjectures">Contents:</a></span>
+      </p>
+      <ul class="current">
+        
+          <li class="toctree-l1 ">
+            
+              <a href="idea.html" class="reference internal ">Project Idea</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 current">
+            
+              <a href="#" class="reference internal current">Methodology</a>
+            
+
+            
+              <ul>
+                
+                  <li class="toctree-l2"><a href="#algorithm-summary" class="reference internal">Algorithm Summary</a></li>
+                
+                  <li class="toctree-l2"><a href="#input-format" class="reference internal">Input Format</a></li>
+                
+                  <li class="toctree-l2"><a href="#initializing-the-neural-network" class="reference internal">Initializing the Neural Network</a></li>
+                
+                  <li class="toctree-l2"><a href="#constructing-graphs-from-the-neural-network" class="reference internal">Constructing Graphs from the Neural Network</a></li>
+                
+                  <li class="toctree-l2"><a href="#scoring-and-filtering-bad-graphs" class="reference internal">Scoring and Filtering Bad Graphs</a></li>
+                
+                  <li class="toctree-l2"><a href="#train-on-the-good-graphs" class="reference internal">Train on the Good Graphs</a></li>
+                
+                  <li class="toctree-l2"><a href="#finding-a-counterexample" class="reference internal">Finding a Counterexample</a></li>
+                
+                  <li class="toctree-l2"><a href="#why-this-algorithm" class="reference internal">Why this Algorithm</a></li>
+                
+              </ul>
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="results.html" class="reference internal ">Results</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="next_steps.html" class="reference internal ">Next Steps</a>
+            
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+    
+    <li>Methodology</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+  <li class="prev">
+    <a href="idea.html"
+       title="previous chapter">← Project Idea</a>
+  </li>
+  <li class="next">
+    <a href="results.html"
+       title="next chapter">Results →</a>
+  </li>
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main" v-pre>
+            
+  <section id="methodology">
+<h1>Methodology<a class="headerlink" href="#methodology" title="Permalink to this headline">¶</a></h1>
+<section id="algorithm-summary">
+<h2>Algorithm Summary<a class="headerlink" href="#algorithm-summary" title="Permalink to this headline">¶</a></h2>
+<p>The algorithm described below is often referred to the Deep Cross-Entropy algorithm</p>
+<figure class="align-default" id="id1">
+<a class="reference internal image-reference" href="_images/algo.png"><img alt="_images/algo.png" src="_images/algo.png" style="width: 800px;" /></a>
+<figcaption>
+<p><span class="caption-text">Overview of the algorithm</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>The algorithm begins with initializing a Neural Network. We then use this Neural Network to construct
+some graphs. These graphs are then scored using our reward function, <strong>f</strong>, and a top percentile of them
+are chosen. The chosen “good” graphs are what we use to train the Neural Network. Once training is complete,
+we repeat the cycle by generating new graphs again, scoring and filtering them, and then using what’s left to train
+the Network again.</p>
+<p>This cycle repeats until a counter example that breaks the score bound is found, or the user stops it. We call each loop of this cycle a single iteration.
+Once a counterexample graph is constructed by the neural network, the loop ends, and a visualization, and any other relevant information of the graph is outputted.</p>
+</section>
+<section id="input-format">
+<h2>Input Format<a class="headerlink" href="#input-format" title="Permalink to this headline">¶</a></h2>
+<p>A graph on N nodes can be encoded by a vector with N(N-1)/2 elements, where each element is a 1 if the corresponding edge is in the graph,
+and a 0 otherwise. However, since we want to input to the model a game ‘state’ for the neural network, this vector isn’t enough. We also need to know which edges the model
+has already considered.</p>
+<p>This leads to a vector with N(N-1) elements. The first N(N-1)/2 elements are as described in the previous paragraph, a state of the graph as it is currently. The second half of the vector
+is a one-hot encoding that represents which edge the graph is meant to consider. For instance, if the (i + N(N-1)/2)th element is 1, then the first i-1 edges of the graph have already been considered
+and the model is meant to output whether the ith edge should be added to the graph or not.</p>
+</section>
+<section id="initializing-the-neural-network">
+<h2>Initializing the Neural Network<a class="headerlink" href="#initializing-the-neural-network" title="Permalink to this headline">¶</a></h2>
+<p>The Neural Network itself takes in a graph state, and outputs a probability (or more accurately, the output of a sigmoid layer) with which to add the edge to the graph.
+The constructor for the graph takes the parameter N upon construction, where N is the number of nodes in the graph it is meant to construct.
+The network itself for this problem was fairly simple, with just a few fully connected layers, because I only considered relatively small graphs as counterexamples.
+I imagine larger values of N might need larger models to accurately capture all the relevant information.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ProjNet</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+    <span class="nb">super</span><span class="p">(</span><span class="n">ProjNet</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">N</span><span class="o">*</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="mi">128</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">fc3</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">fc4</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc3</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc4</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">x</span>
+</pre></div>
+</div>
+</section>
+<section id="constructing-graphs-from-the-neural-network">
+<h2>Constructing Graphs from the Neural Network<a class="headerlink" href="#constructing-graphs-from-the-neural-network" title="Permalink to this headline">¶</a></h2>
+<p>Let us call each graph construction a single “session”. We begin an iteration by performing <em>k</em> sessions using the model.
+<em>k</em> is actually a fairly important hyperparameter, and is the source of the largest bottle in terms of work done, in the entire model. To see why, let us think about how
+big a session needs to be.</p>
+<p>A session has N(N-1)/2 decisions, one for each edge in the graph, and we want a record of the state at each decision to train the model on, which is a vector of length N(N-1).
+The total size of a session is therefore N*N*(N-1)*(N-1)/2, and which is why it’s slow. The original codebase did this step extremely inefficiently, with multiple redundant copies
+and processing, making it a massive bottleneck. I redid the programming for this entire part, leading to large improvements in the speed of this code.</p>
+<figure class="align-default" id="id2">
+<a class="reference internal image-reference" href="_images/constr.png"><img alt="_images/constr.png" src="_images/constr.png" style="width: 800px;" /></a>
+<figcaption>
+<p><span class="caption-text">Overview of the Graph Construction</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<section id="give-the-model-an-empty-graph">
+<h3>Give the Model an Empty Graph<a class="headerlink" href="#give-the-model-an-empty-graph" title="Permalink to this headline">¶</a></h3>
+<p>We begin by giving the model a vector of all 0s, with only the N(N-1)/2th element set to be 1, to demarcate that we are considering the first edge currently.
+We also record this state as the first part of the session.</p>
+</section>
+<section id="model-outputs-a-probability">
+<h3>Model outputs a probability<a class="headerlink" href="#model-outputs-a-probability" title="Permalink to this headline">¶</a></h3>
+<p>The model will take in the vector, and output a real number between 0 and 1, let’s called it <em>p</em>, which we will treat as a probability that the edge is added or not.</p>
+</section>
+<section id="adding-the-edge-to-the-graph">
+<h3>Adding the edge to the graph<a class="headerlink" href="#adding-the-edge-to-the-graph" title="Permalink to this headline">¶</a></h3>
+<p>Now the graph has outputted a probability <em>p</em>, and we want to add this edge to the graph with probability <em>p</em>, which is fairly to simple to achieve with code like the following:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">p</span><span class="p">:</span>
+    <span class="n">action</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="k">else</span><span class="p">:</span>
+   <span class="n">action</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<p>However, what would happen, and the reason the paper took so many iterations, was that <em>p</em> would end up being too extreme, and the model would get stuck generating
+the same sort of graphs, essentially in a non-optimal pit.</p>
+<p>My idea was to introduce something that slowly pushed <em>p</em> towards 0.5 over time, if the learning plateaus. I called this hyperparameter entropy in my code, but I later
+learned from Professor Redmon that temperature (for Sigmoid) performs an extremely similar function. Here is what the code looked like after I applied my idea and formula:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mf">0.5</span> <span class="o">+</span> <span class="p">(</span><span class="n">p</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">*</span><span class="n">entropy</span><span class="p">:</span>
+    <span class="n">action</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="k">else</span><span class="p">:</span>
+     <span class="n">action</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<p>This essentially pushes <em>p</em> towards 0.5 by (1 - entropy) percentage. So if entropy was 0.9, the difference between 0.5 and <em>p</em> would decrease by 10 percent. This definitely aided
+in removing pits, as we will demonstrate in my results.</p>
+<p>Additionally, we record the action made by our code, and save it paired with the state inputted to the model.</p>
+</section>
+<section id="feed-the-graph-to-the-model-again">
+<h3>Feed the Graph to the Model again<a class="headerlink" href="#feed-the-graph-to-the-model-again" title="Permalink to this headline">¶</a></h3>
+<p>If we just considred the ith edge, counting from 0, we 0 out the (i + N(N-1)/2)th position, and set (i + 1 + N(N-1)/2)th position to 1, to demarcate to the model that we are now considering
+the next edge. Before passing the state to the model, we record the state as the next step in the decision.</p>
+</section>
+<section id="graph-is-finished-constructing">
+<h3>Graph is finished constructing<a class="headerlink" href="#graph-is-finished-constructing" title="Permalink to this headline">¶</a></h3>
+<p>We repeat this cycle until all edges in the graph have been considered, and do the same for each session. Once all the sessions have been completed, we go to the next step.</p>
+<p>Note: Technically I do all sessions simultaneously, passing a k*N(N-1) sized matrix to the model, but that’s more of an implementation detail.</p>
+</section>
+</section>
+<section id="scoring-and-filtering-bad-graphs">
+<h2>Scoring and Filtering Bad Graphs<a class="headerlink" href="#scoring-and-filtering-bad-graphs" title="Permalink to this headline">¶</a></h2>
+<p>Once all the graphs are constructed, we first score them all using our scoring funciton <em>f</em>. Before any filtering, we also add in any really strong graphs from previous iterations.
+After those are added, we select the top <em>s</em>-percentile of graphs, and discard the rest. We also save the top <em>t</em>-percentile of graphs for future graphs. This is also in case some extremely strong
+graphs are generated.</p>
+<p>Note that when I say I “save/select” the graphs, I’m attaching the final graph’s score to every state that occured during that graph’s construction, to teach the model what to do at each step in the future.</p>
+</section>
+<section id="train-on-the-good-graphs">
+<h2>Train on the Good Graphs<a class="headerlink" href="#train-on-the-good-graphs" title="Permalink to this headline">¶</a></h2>
+<p>We take the selected graphs and train the Neural Network on them. It’s a fairly simple and straightforward training loop.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span> <span class="n">momentum</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">decay</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+  <span class="n">net</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+  <span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+  <span class="n">inputs</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">),</span> <span class="n">y</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+  <span class="n">losses</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="n">criterion</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">BCELoss</span><span class="p">()</span>
+  <span class="n">optimizer</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="n">lr</span><span class="p">)</span>
+  <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+        <span class="c1"># zero the parameter gradients</span>
+        <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+
+        <span class="c1"># forward + backward + optimize</span>
+        <span class="n">outputs</span> <span class="o">=</span> <span class="n">net</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>
+        <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+        <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+  <span class="k">return</span>
+</pre></div>
+</div>
+</section>
+<section id="finding-a-counterexample">
+<h2>Finding a Counterexample<a class="headerlink" href="#finding-a-counterexample" title="Permalink to this headline">¶</a></h2>
+<p>At some point during the iterations, we will find a graph that breaks the bound we were trying to achieve. Once this happens, the loop stops, and we output a visualization of the graph, along with
+any relevant information.</p>
+</section>
+<section id="why-this-algorithm">
+<h2>Why this Algorithm<a class="headerlink" href="#why-this-algorithm" title="Permalink to this headline">¶</a></h2>
+<p>The issue with most reinforcement learning algorithms is they use an intermediate scoring function or heuristic to train on intermediate states. With this problem, we only get a score after all
+the decisions are already made, making the best source of learning unavailable. The Deep Cross-Entropy algorithm outlined above only uses the final score to train all intermediate states
+and helps teach the model what to do for those mid-session states, without having any intermediate reward function.</p>
+</section>
+</section>
+
+
+          </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+  <li class="prev">
+    <a href="idea.html"
+       title="previous chapter">← Project Idea</a>
+  </li>
+  <li class="next">
+    <a href="results.html"
+       title="next chapter">Results →</a>
+  </li>
+</ul><div class="footer" role="contentinfo">
+      &#169; Copyright 2021, Mrigank Arora.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.3.1 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
+</div>
+            </div>
+          </div>
+      </page>
+    </div></div>
+    
+    
+  </body>
+</html>
